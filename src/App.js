@@ -1,49 +1,47 @@
 /* global chrome */
 
 import React, { Component } from "react";
-import icon from "./imgs/bell.png";
+import icon from "./imgs/actIco.png";
 import "./App.css";
-import axios from "axios";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    //name description link
     this.state = {
-      domain: "",
       title: "",
-      synopsis: "",
+      description: "",
       link: ""
     };
   }
 
-  // componentDidMount() {
-  //   chrome.runtime.sendMessage({ from: "reactapp" });
-  //   console.log("BUHRHRHsRHRH");
-  //   chrome.runtime.onMessage.addListener(function(msg) {
-  //     console.log("BUHRHRHRHssssssssssssRH");
-  //     if (msg.from == "background" && msg.event) {
-  //       console.log("BUHRHRHRHRH");
-  //     }
-  //   });
-
-  //   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-  //     // const url = new URL(tabs[0].url);
-  //     const domain = tabs[0].url;
-  //     this.setState({
-  //       domain: domain
-  //     });
-  //   });
-  // }
-  // handleMessage(msg) {
-  //   console.log("inapp");
-  //   console.log("inapp", msg.title);
-  //   //   this.setState({
-  //   //     title: request.title,
-  //   //     synopsis: request.title,
-  //   //     link: request.title
-  //   //   });
-  // }
+  componentDidMount() {
+    let getInfo = function() {
+      return new Promise(function(resolve, reject) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function(
+          tabs
+        ) {
+          chrome.tabs.sendMessage(tabs[0].id, { from: "reactapp" }, function(
+            response
+          ) {
+            console.log("titile", response.title, "from", response.from);
+            var data = {
+              title: response.title,
+              description: response.description,
+              link: response.link
+            };
+            resolve(data);
+          });
+        });
+      });
+    };
+    getInfo().then(data => {
+      return this.setState({
+        title: data.title,
+        description: data.description,
+        link: data.link
+      });
+    });
+  }
 
   render() {
     return (
@@ -59,7 +57,7 @@ class App extends Component {
                 {this.state.title}
               </a>
             </p>
-            <p className="genText">{this.state.synopsis}</p>
+            <p className="genText">{this.state.description}</p>
           </div>
         </div>
       </div>
@@ -67,34 +65,3 @@ class App extends Component {
   }
 }
 export default App;
-
-// getInfo(query) {
-// axios
-//   .get(
-//     "https://maps.googleapis.com/maps/api/place/details/json?placeid=" +
-//       item +
-//       "&key=AIzaSyAZrElebDLgsC85gz4hpGKceQx_0OwllUc"
-//   )
-//   .then(response => console.log("succ", response))
-//   .catch(err => {
-//     console.log(err); //Axios entire error message
-//     console.log(err.response.data.error); //Google API error message
-//   });
-// axios.get('',{
-//   params: {
-//     q: query,
-//     language: 'en',
-//     apiKey: {{ }}
-//   }
-// }).then(results => {
-//     this.setState({
-//       headlines: results.data.articles.slice(0,5)
-//     });
-// }).catch(error => {
-//     console.log('Error in obtaining headlines', error);
-// });
-//   console.log(this.state.title);
-//   console.log(this.state.synopsis);
-//   console.log(this.state.link);
-//   console.log("url: ", this.state.domain);
-// }

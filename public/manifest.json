@@ -1,5 +1,5 @@
 {
-  "name": "Marte",
+  "name": "Act Now",
   "manifest_version": 2,
   "version": "0.0.1",
   "description": "Facilitating social responsibility by connecting people like minded people to ways impact the real world",
@@ -16,6 +16,7 @@
   },
   "permissions": [
     "contextMenus",
+    "webNavigation",
     "storage",
     "tabs",
     "https://*/",
