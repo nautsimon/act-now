@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300&display=swap");
+.html {
+  height: 120%;
+  margin: 0px;
+  padding: 0px;
+}
+.modalBody {
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  height: 100%;
+  margin: 0px;
+}
+button {
+  background-color: transparent;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+a {
+  text-decoration: none;
+  padding: 0px;
+  margin: 0px;
+}
+.titleLink {
+  text-decoration: none;
+  color: #ffffff;
+  margin-bottom: 1px;
+  border-bottom: 2px solid #ff6464;
+}
+
+.titleLink:hover {
+  border-bottom: 2px solid #ffe8e8;
+}
+.left {
+  width: 8%;
+  height: 100%;
+  margin: 1%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+p {
+  margin: 0px;
+  padding: 0px;
+  padding-top: 3px;
+}
+.right {
+  width: 78%;
+  margin: 1%;
+  margin-right: 11%;
+}
+
+.titleText {
+  font-size: 19px;
+}
+
+.genText {
+  font-size: 15px;
+}
+
+.icon {
+  height: 40vh;
+  padding-top: 10%;
+}
