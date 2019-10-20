@@ -7,30 +7,23 @@ var eventResp = {
   link: "false"
 };
 let getUrl = function() {
-  console.log("domain");
   return new Promise((resolve, reject) => {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
       var domain = tabs[0].url;
-      console.log("domain", domain);
-
       resolve(domain);
     });
   });
 };
 let getApi = function(pageUrl) {
   var pageUrl = pageUrl;
-  console.log("pageurl", pageUrl);
   var xhr = new XMLHttpRequest(),
     method = "POST",
     url = "http://actnow-chrome.herokuapp.com/getevent/";
   return new Promise(function(resolve, reject) {
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log(xhr.responseText);
         response = JSON.parse(xhr.responseText);
-        console.log("string", response);
         if (response != "none") {
-          console.log("response");
           eventResp = {
             isEvent: "true",
             title: response.name,
@@ -45,13 +38,13 @@ let getApi = function(pageUrl) {
             description: "false",
             link: "false"
           };
+          console.log("Act Now: nothing found");
           resolve(eventResp);
         }
       }
     };
     xhr.open(method, url);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    console.log(eventResp);
     xhr.send(
       JSON.stringify({
         url: pageUrl
@@ -61,7 +54,6 @@ let getApi = function(pageUrl) {
 };
 let sendMessage = function(msg, sender, result) {
   var response = eventResp;
-  console.log("evvenne", response);
   return new Promise((resolve, reject) => {
     chrome.tabs.sendMessage(contentTabId, {
       from: "background",

@@ -23,7 +23,6 @@ class App extends Component {
           chrome.tabs.sendMessage(tabs[0].id, { from: "reactapp" }, function(
             response
           ) {
-            console.log("titile", response.title, "from", response.from);
             var data = {
               title: response.title,
               description: response.description,
