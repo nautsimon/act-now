@@ -19,6 +19,7 @@
     "webNavigation",
     "storage",
     "tabs",
+    "geolocation",
     "https://*/",
     "https://*/*"
   ],

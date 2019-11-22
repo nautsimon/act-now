@@ -1,5 +1,6 @@
 var contentTabId;
-
+var x = 0;
+var y = 0;
 var eventResp = {
   isEvent: "false",
   title: "false",
@@ -14,6 +15,24 @@ let getUrl = function() {
     });
   });
 };
+let getCoord = function(position) {
+  x = position.coords.latitude;
+  y = position.coords.longitude;
+
+  return x, y;
+};
+let getLocation = function() {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getCoord);
+      resolve(x, y);
+    } else {
+      console.log("fail");
+      resolve("Unavailable");
+    }
+  });
+};
+
 let getApi = function(pageUrl) {
   var pageUrl = pageUrl;
   var xhr = new XMLHttpRequest(),
@@ -68,6 +87,7 @@ let sendMessage = function(msg, sender, result) {
 chrome.runtime.onMessage.addListener(function(msg, sender) {
   if (msg.from == "content" || msg.from == "reactapp") {
     contentTabId = sender.tab.id;
+    getLocation();
     getUrl()
       .then(result => {
         return getApi(result);
