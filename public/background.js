@@ -1,4 +1,5 @@
 var contentTabId;
+//images
 var x = 0;
 var y = 0;
 var eventResp = {
